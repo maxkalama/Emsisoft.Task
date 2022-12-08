@@ -1,4 +1,6 @@
-﻿using Emsisoft.RabbitMQ.Client;
+﻿using Emsisoft.HashesService;
+using Emsisoft.Models;
+using Emsisoft.RabbitMQ.Client;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Emsisoft.API.Controllers
@@ -7,6 +9,9 @@ namespace Emsisoft.API.Controllers
     [ApiController]
     public class HashesController : ControllerBase
     {
+        const int hashesCount = 40000;
+        const int batchSize = 100;
+
         [HttpGet]
         public IEnumerable<string> Get()
         {
@@ -16,7 +21,13 @@ namespace Emsisoft.API.Controllers
         [HttpPost]
         public void Post([FromBody] string value)
         {
-            RabbitMqClient.Send();
+            var rnd = new Random();
+            IHashesService service = new Sha1HashesService();
+            var hashes = Enumerable.Range(0, hashesCount).Select(i => service.GetRandomHash()).ToList();
+
+
+            IEnumerable<byte[]> hashesBatch = null;
+            RabbitMqClient.Send(hashesBatch);
         }
     }
 }

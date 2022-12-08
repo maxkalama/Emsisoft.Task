@@ -41,5 +41,15 @@ namespace Emsisoft.HashesService.Tests
 
             Assert.IsFalse(hash1.Hash.SequenceEqual(hash2.Hash));
         }
+
+        [TestMethod]
+        public void ShouldNotChangeWhenConverted()
+        {
+            var hash = _service.GetRandomHash();
+            var hashBytes = _service.ToBinary(hash);
+            var convertedHash = _service.FromBinary(hashBytes);
+            Assert.IsTrue(hash.Hash.SequenceEqual(convertedHash.Hash));
+            Assert.AreEqual(hash.Date, convertedHash.Date);
+        }
     }
 }

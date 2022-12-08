@@ -13,5 +13,12 @@ namespace Emsisoft.HashesService.Tests
         {
             base._service = new Sha1HashesService();
         }
+
+        [TestMethod]
+        public void ShouldReturnRandomDayOfCurrentMonth()
+        {
+            var hash = _service.GetRandomHash();
+            Assert.AreEqual(hash.Date.Month, DateTime.UtcNow.Month);
+        }
     }
 }
