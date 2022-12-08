@@ -7,18 +7,23 @@ namespace Emsisoft.RabbitMQ.Client
     public class RabbitMqClient
     {
         private const string queueName = "Emsisoft";
-        public static void Send(IEnumerable<byte[]> hashesBatch)
+        public static void SendBatch(IEnumerable<byte[]> hashesBatch)
         {
             GetChannel(out IConnection connection, out IModel channel);
             using (connection)
             using (channel)
             {
+                var batch = channel.CreateBasicPublishBatch();
                 hashesBatch.ToList().ForEach(hashBytes =>
-                    channel.BasicPublish(exchange: "",
-                                         routingKey: queueName,
-                                         basicProperties: null,
-                                         body: hashBytes)
+                    batch.Add(exchange: "",
+                        routingKey: queueName,
+                        mandatory: false,
+                        properties: null,
+                        body: new ReadOnlyMemory<byte>(hashBytes)
+                    )
                 );
+
+                batch.Publish();
             }
         }
 
@@ -26,7 +31,7 @@ namespace Emsisoft.RabbitMQ.Client
         {
             GetChannel(out IConnection connection, out IModel channel);
 
-            channel.BasicQos(prefetchSize: 100, prefetchCount: 1, global: false); //100 hashes at a time to avoid extra DB calls
+            channel.BasicQos(prefetchSize: 0, prefetchCount: 100, global: false); //100 hashes at a time to avoid extra DB calls
 
             var consumer = new EventingBasicConsumer(channel);
             consumer.Received += handler;
