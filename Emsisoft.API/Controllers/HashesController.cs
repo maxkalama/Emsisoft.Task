@@ -23,10 +23,10 @@ namespace Emsisoft.API.Controllers
         }
 
         [HttpGet]
-        public Dictionary<DateOnly,int> Get()
+        public ActionResult Get()
         {
             var counts = _dbService.GetCounts();
-            return counts;
+            return Ok(counts.Select(c=> new {Date = c.Key.ToShortDateString(), Count = c.Value.ToString()}));
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Emsisoft.API.Controllers
                 RabbitMqClient.SendBatch(hashesBytes);
             });
 
-            return ;
+           return Ok();
         }
     }
 }

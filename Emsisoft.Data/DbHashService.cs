@@ -24,6 +24,7 @@ namespace Emsisoft.Data
             using var context = new HashesContext();
             var hashes = context.Hashes.GroupBy(h => h.Date)
                 .Select(g => new { g.Key, Count = g.Count() })
+                .OrderByDescending(k => k.Key)
                 .ToDictionary(g => g.Key, g => g.Count);
             return hashes;
         }
