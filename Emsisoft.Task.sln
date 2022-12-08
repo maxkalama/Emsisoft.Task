@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emsisoft.HashesService.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emsisoft.RabbitMQ.Client", "Emsisoft.RabbitMQ.Client\Emsisoft.RabbitMQ.Client.csproj", "{3AB50BE3-A5D8-45C7-9A28-75703AFB6FDD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emsisoft.BackgroundWorker", "Emsisoft.BackgroundWorker\Emsisoft.BackgroundWorker.csproj", "{B0C76AB5-E676-4D6E-819E-C592C7AC3EEC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{3AB50BE3-A5D8-45C7-9A28-75703AFB6FDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3AB50BE3-A5D8-45C7-9A28-75703AFB6FDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3AB50BE3-A5D8-45C7-9A28-75703AFB6FDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0C76AB5-E676-4D6E-819E-C592C7AC3EEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0C76AB5-E676-4D6E-819E-C592C7AC3EEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0C76AB5-E676-4D6E-819E-C592C7AC3EEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0C76AB5-E676-4D6E-819E-C592C7AC3EEC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

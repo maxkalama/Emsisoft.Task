@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Emsisoft.RabbitMQ.Client;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Emsisoft.API.Controllers
 {
@@ -15,7 +16,7 @@ namespace Emsisoft.API.Controllers
         [HttpPost]
         public void Post([FromBody] string value)
         {
-
+            RabbitMqClient.Send();
         }
     }
 }
