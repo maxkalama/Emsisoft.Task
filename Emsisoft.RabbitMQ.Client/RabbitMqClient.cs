@@ -13,36 +13,26 @@ namespace Emsisoft.RabbitMQ.Client
             using (connection)
             using (channel)
             {
-
-                string message = "Hello world!";
+                string message = "Hello World!";
                 var body = Encoding.UTF8.GetBytes(message);
 
                 channel.BasicPublish(exchange: "",
-                    routingKey: queueName,
-                    basicProperties: null,
-                    body: body);
+                                     routingKey: queueName,
+                                     basicProperties: null,
+                                     body: body);
             }
         }
 
-        public static void Receive()
+        public static void Receive(EventHandler<BasicDeliverEventArgs> handler)
         {
             GetChannel(out IConnection connection, out IModel channel);
-            using (connection)
-            using (channel)
-            {
-                var consumer = new EventingBasicConsumer(channel);
 
-                consumer.Received += (model, ea) =>
-                {
-                    var body = ea.Body.ToArray();
-                    var message = Encoding.UTF8.GetString(body);
-                    Console.WriteLine(message);
-                };
+            var consumer = new EventingBasicConsumer(channel);
+            consumer.Received += handler;
+            channel.BasicConsume(queue: queueName,
+                                 autoAck: true,
+                                 consumer: consumer);
 
-                channel.BasicConsume(queue: queueName,
-                    autoAck: true,
-                    consumer: consumer);
-            }
         }
 
         private static void GetChannel(out IConnection connection, out IModel channel)
@@ -52,8 +42,10 @@ namespace Emsisoft.RabbitMQ.Client
             channel = connection.CreateModel();
 
             channel.QueueDeclare(queue: queueName,
-                durable: false,
-                autoDelete: false);
+                                 durable: false,
+                                 exclusive: false,
+                                 autoDelete: false,
+                                 arguments: null);
         }
     }
 }
