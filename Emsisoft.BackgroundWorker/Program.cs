@@ -7,23 +7,50 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Text;
 
-Console.WriteLine("Hello, World!");
+Console.WriteLine("Hello, World! Starting messages recieving...");
 
-var service = new Sha1HashesService();
-var dbService = new DbHashService();
+const int threadCount = 4;
 
-const int dbBatchSize = 100;
-var dbBatch = new Hash[dbBatchSize];
-var ackBatch = new ulong[dbBatchSize];
-ushort current = 0;
+ThreadPool.GetMaxThreads(out int maxWorker, out int maxCompletionThreads);
+//default to CPUs number, can't be set to a number smaller than the number of processors on the computer.
+//https://learn.microsoft.com/en-us/dotnet/api/system.threading.threadpool.setmaxthreads?view=net-7.0
+ThreadPool.SetMaxThreads(threadCount, maxCompletionThreads); 
 
-RabbitMqClient.GetChannel(out IConnection connection, out IModel channel);
-RabbitMqClient.StartConsuming(QueueMessageHandler, connection, channel);
+for (int i = 0; i < threadCount; i++)
+{
+    var t = new Thread(() => ExecuteMessageConsumer(threadNumber: i));
+    t.Start();
+}
 
 Console.WriteLine("Press Enter to exit");
 Console.ReadLine();
 
-void QueueMessageHandler(object? model, BasicDeliverEventArgs ea)
+void ExecuteMessageConsumer(int threadNumber)
+{
+    var service = new Sha1HashesService();
+    var dbService = new DbHashService();
+
+    const int dbBatchSize = 100;
+    var dbBatch = new Hash[dbBatchSize];
+    var ackBatch = new ulong[dbBatchSize];
+    ushort current = 0;
+
+    RabbitMqClient.GetChannel(out IConnection connection, out IModel channel);
+    var consumer = new EventingBasicConsumer(channel);
+    consumer.Received += (model, ea) => MessageHandler(model, ea, service, dbService, dbBatch, ackBatch, channel, ref current, threadNumber);
+
+    RabbitMqClient.StartConsuming(channel, consumer);  
+}
+
+void MessageHandler(object? model,
+    BasicDeliverEventArgs ea,
+    IHashesService service,
+    IDbHashService dbService,
+    Hash[] dbBatch,
+    ulong[] ackBatch,
+    IModel channel,
+    ref ushort current,
+    int threadNumber)
 {
     var body = ea.Body.ToArray();
     var hash = service.FromBinary(body);
@@ -37,7 +64,7 @@ void QueueMessageHandler(object? model, BasicDeliverEventArgs ea)
         if (dbService.TryInsert(dbBatch))
         {
             ackBatch.ToList().ForEach(a => channel.BasicAck(a, multiple: false)); //ack the messages
-            Console.WriteLine($" # Wrote {current+1} hashes"); //+1 since zero based
+            Console.WriteLine($" # Thread {threadNumber} wrote {current+1} hashes"); //+1 since zero based
             current = 0;
         }
         else

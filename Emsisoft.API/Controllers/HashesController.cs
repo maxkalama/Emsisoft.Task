@@ -10,7 +10,7 @@ namespace Emsisoft.API.Controllers
     [ApiController]
     public class HashesController : ControllerBase
     {
-        const int hashesCount = 500;//40000;
+        const int hashesCount = 40000;
         const int batchSize = 100;
         private readonly IHashesService _service;
         private readonly IDbHashService _dbService;

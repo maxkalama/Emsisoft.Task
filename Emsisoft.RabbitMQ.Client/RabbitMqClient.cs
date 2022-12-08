@@ -27,12 +27,9 @@ namespace Emsisoft.RabbitMQ.Client
             }
         }
 
-        public static void StartConsuming(EventHandler<BasicDeliverEventArgs> handler, IConnection connection, IModel channel)
+        public static void StartConsuming(IModel channel, EventingBasicConsumer consumer)
         {
             channel.BasicQos(prefetchSize: 0, prefetchCount: 100, global: false); //100 hashes at a time to avoid extra DB calls
-
-            var consumer = new EventingBasicConsumer(channel);
-            consumer.Received += handler;
             channel.BasicConsume(queue: queueName,
                                  autoAck: false,
                                  consumer: consumer);
