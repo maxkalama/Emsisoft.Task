@@ -13,10 +13,6 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<IHashesService, Sha1HashesService>();
 builder.Services.AddSingleton<IDbHashService, DbHashService>();
 
-builder.Services.AddControllers().AddJsonOptions(options =>
-    options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter())
-);
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
