@@ -8,13 +8,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\Emsisoft.Data\Emsisoft.Data.csproj" />
+    <ProjectReference Include="..\Emsisoft.DB\Emsisoft.DB.csproj" />
     <ProjectReference Include="..\Emsisoft.HashesService\Emsisoft.HashesService.csproj" />
     <ProjectReference Include="..\Emsisoft.RabbitMQ.Client\Emsisoft.RabbitMQ.Client.csproj" />
   </ItemGroup>

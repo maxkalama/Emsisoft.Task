@@ -2,9 +2,9 @@
 
 namespace Emsisoft.Data
 {
-    public class HashService
+    public class DbHashService : IDbHashService
     {
-        public bool Insert(IEnumerable<Hash> hashesBatch)
+        public bool TryInsert(IEnumerable<Hash> hashesBatch)
         {
             using var context = new HashesContext();
             context.Hashes.AddRange(hashesBatch);
@@ -22,9 +22,9 @@ namespace Emsisoft.Data
         public Dictionary<DateOnly, int> GetCounts()
         {
             using var context = new HashesContext();
-            var hashes = context.Hashes.GroupBy(h=>h.Date)
-                .Select(g=> new { g.Key, Count = g.Count()})
-                .ToDictionary(g=>g.Key, g=>g.Count);
+            var hashes = context.Hashes.GroupBy(h => h.Date)
+                .Select(g => new { g.Key, Count = g.Count() })
+                .ToDictionary(g => g.Key, g => g.Count);
             return hashes;
         }
     }

@@ -1,3 +1,4 @@
+using Emsisoft.Data;
 using Emsisoft.HashesService;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddSingleton<IHashesService, Sha1HashesService>();
+builder.Services.AddSingleton<IDbHashService, DbHashService>();
+
+builder.Services.AddControllers().AddJsonOptions(options =>
+    options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter())
+);
 
 var app = builder.Build();
 

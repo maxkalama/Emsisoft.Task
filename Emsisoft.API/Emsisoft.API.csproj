@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Emsisoft.Data\Emsisoft.Data.csproj" />
     <ProjectReference Include="..\Emsisoft.HashesService\Emsisoft.HashesService.csproj" />
     <ProjectReference Include="..\Emsisoft.RabbitMQ.Client\Emsisoft.RabbitMQ.Client.csproj" />
   </ItemGroup>
