@@ -11,9 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emsisoft.Models", "Models\E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emsisoft.HashesService.Tests", "Emsisoft.HashesService.Tests\Emsisoft.HashesService.Tests.csproj", "{B483587F-A2FF-4E21-8BA9-A37C01982503}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emsisoft.RabbitMQ.Client", "Emsisoft.RabbitMQ.Client\Emsisoft.RabbitMQ.Client.csproj", "{3AB50BE3-A5D8-45C7-9A28-75703AFB6FDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emsisoft.RabbitMQ.Client", "Emsisoft.RabbitMQ.Client\Emsisoft.RabbitMQ.Client.csproj", "{3AB50BE3-A5D8-45C7-9A28-75703AFB6FDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emsisoft.BackgroundWorker", "Emsisoft.BackgroundWorker\Emsisoft.BackgroundWorker.csproj", "{B0C76AB5-E676-4D6E-819E-C592C7AC3EEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Emsisoft.BackgroundWorker", "Emsisoft.BackgroundWorker\Emsisoft.BackgroundWorker.csproj", "{B0C76AB5-E676-4D6E-819E-C592C7AC3EEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emsisoft.DB", "Emsisoft.DB\Emsisoft.DB.csproj", "{E703AE84-E757-436F-A523-D31C307F609D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emsisoft.Data", "Emsisoft.Data\Emsisoft.Data.csproj", "{FBCE4BFA-32A9-4FC3-BB08-C13DBFE1F8FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{B0C76AB5-E676-4D6E-819E-C592C7AC3EEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0C76AB5-E676-4D6E-819E-C592C7AC3EEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0C76AB5-E676-4D6E-819E-C592C7AC3EEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E703AE84-E757-436F-A523-D31C307F609D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E703AE84-E757-436F-A523-D31C307F609D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E703AE84-E757-436F-A523-D31C307F609D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E703AE84-E757-436F-A523-D31C307F609D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBCE4BFA-32A9-4FC3-BB08-C13DBFE1F8FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBCE4BFA-32A9-4FC3-BB08-C13DBFE1F8FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBCE4BFA-32A9-4FC3-BB08-C13DBFE1F8FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBCE4BFA-32A9-4FC3-BB08-C13DBFE1F8FE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
