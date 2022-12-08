@@ -1,5 +1,4 @@
 ﻿using Emsisoft.Models;
-using System.Security.Cryptography;
 
 namespace Emsisoft.HashesService
 {

@@ -1,6 +1,5 @@
 ﻿using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using System.Text;
 
 namespace Emsisoft.RabbitMQ.Client
 {
@@ -29,6 +28,8 @@ namespace Emsisoft.RabbitMQ.Client
 
         public static void StartConsuming(IModel channel, EventingBasicConsumer consumer)
         {
+            //some code extracted to the calling method
+
             channel.BasicQos(prefetchSize: 0, prefetchCount: 100, global: false); //100 hashes at a time to avoid extra DB calls
             channel.BasicConsume(queue: queueName,
                                  autoAck: false,

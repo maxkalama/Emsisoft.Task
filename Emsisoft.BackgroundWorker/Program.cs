@@ -1,11 +1,9 @@
 ﻿using Emsisoft.Data;
 using Emsisoft.DB;
 using Emsisoft.HashesService;
-using Emsisoft.Models;
 using Emsisoft.RabbitMQ.Client;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
-using System.Text;
 
 Console.WriteLine("Hello, World! Starting messages recieving...");
 

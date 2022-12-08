@@ -1,6 +1,5 @@
 ﻿using Emsisoft.Data;
 using Emsisoft.HashesService;
-using Emsisoft.Models;
 using Emsisoft.RabbitMQ.Client;
 using Microsoft.AspNetCore.Mvc;
 

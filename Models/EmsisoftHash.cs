@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography;
-
-namespace Emsisoft.Models
+﻿namespace Emsisoft.Models
 {
     public class EmsisoftHash
     {
