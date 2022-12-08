@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Emsisoft.HashesService.Tests
 {
-    public class IHashServiceTests
+    public class HashServiceTests
     {
         public IHashesService _service;
 
