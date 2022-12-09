@@ -5,7 +5,9 @@ using Emsisoft.RabbitMQ.Client;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
-Console.WriteLine("Hello, World! Starting messages recieving...");
+Console.WriteLine($"Hello, World! Starting messages recieving... Main thread {Thread.CurrentThread.ManagedThreadId}");
+Console.Write("Press Enter to continue...");
+Console.ReadLine();
 
 const int threadCount = 4;
 
@@ -71,7 +73,7 @@ async Task<ushort> MessageHandlerAsync(object? model,
         if (await dbService.TryInsertAsync(dbBatch))
         {
             ackBatch.ToList().ForEach(a => channel.BasicAck(a, multiple: false)); //ack the messages
-            Console.WriteLine($" # Thread {threadNumber} wrote {current+1} hashes"); //+1 since zero based
+            Console.WriteLine($" # Thread {Thread.CurrentThread.ManagedThreadId} {threadNumber} wrote {current+1} hashes"); //+1 since zero based
             current = 0;
         }
         else
