@@ -8,7 +8,8 @@ namespace Emsisoft.DB
         {
             base.OnConfiguring(optionsBuilder);
 
-            optionsBuilder.UseSqlServer("Server=max;Database=MaximKudinovHashes;Integrated Security=true;Encrypt=False;"); //Encrypt=False; breaking change in EF Core 7
+            optionsBuilder
+                .UseSqlServer("Server=max;Database=MaximKudinovHashes;Integrated Security=true;Encrypt=False;"); //Encrypt=False; breaking change in EF Core 7
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

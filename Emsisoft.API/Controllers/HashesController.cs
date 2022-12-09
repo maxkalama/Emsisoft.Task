@@ -32,18 +32,19 @@ namespace Emsisoft.API.Controllers
         /// Generates and adds 40000 hashes to the RabbitMQ queue.
         /// </summary>
         [HttpPost]
-        public ActionResult Post([FromBody] string value)
+        public async Task<ActionResult> PostAsync([FromBody] string value)
         {
             var hashes = Enumerable.Range(0, hashesCount).Select(i => _service.GetRandomHash()).ToList();
-            var batches = hashes.Chunk(batchSize).ToList(); 
+            var batches = hashes.Chunk(batchSize).ToList();
 
-            batches.ForEach(batch =>
-            {
-                var hashesBytes = batch.Select(hash => _service.ToBinary(hash));
-                RabbitMqClient.SendBatch(hashesBytes);
-            });
+            await Task.Run(() => batches.ForEach(batch => //takes some time so awaitable
+                {
+                    var hashesBytes = batch.Select(hash => _service.ToBinary(hash));
+                    RabbitMqClient.SendBatch(hashesBytes);
+                })
+            );
 
-           return Ok();
+            return Ok();
         }
     }
 }
