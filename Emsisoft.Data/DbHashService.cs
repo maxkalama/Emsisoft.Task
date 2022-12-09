@@ -4,13 +4,13 @@ namespace Emsisoft.Data
 {
     public class DbHashService : IDbHashService
     {
-        public bool TryInsert(IEnumerable<Hash> hashesBatch)
+        public async Task<bool> TryInsertAsync(IEnumerable<Hash> hashesBatch)
         {
             using var context = new HashesContext();
             context.Hashes.AddRange(hashesBatch);
             try
             {
-                context.SaveChanges();
+                await context.SaveChangesAsync();
                 return true;
             }
             catch

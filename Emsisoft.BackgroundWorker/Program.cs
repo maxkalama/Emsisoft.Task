@@ -35,19 +35,30 @@ void ExecuteMessageConsumer(int threadNumber)
 
     RabbitMqClient.GetChannel(out IConnection connection, out IModel channel);
     var consumer = new EventingBasicConsumer(channel);
-    consumer.Received += (model, ea) => MessageHandler(model, ea, service, dbService, dbBatch, ackBatch, channel, ref current, threadNumber);
+    consumer.Received += async (model, ea) =>
+    {
+        current = await MessageHandlerAsync(model,
+            ea,
+            service,
+            dbService,
+            dbBatch,
+            ackBatch,
+            channel,
+            current,
+            threadNumber);
+    };
 
     RabbitMqClient.StartConsuming(channel, consumer);  
 }
 
-void MessageHandler(object? model,
+async Task<ushort> MessageHandlerAsync(object? model,
     BasicDeliverEventArgs ea,
     IHashesService service,
     IDbHashService dbService,
     Hash[] dbBatch,
     ulong[] ackBatch,
     IModel channel,
-    ref ushort current,
+    ushort current,
     int threadNumber)
 {
     var body = ea.Body.ToArray();
@@ -59,7 +70,7 @@ void MessageHandler(object? model,
 
     if (current >= 99) //99 is zero based 100 items
     {
-        if (dbService.TryInsert(dbBatch))
+        if (await dbService.TryInsertAsync(dbBatch))
         {
             ackBatch.ToList().ForEach(a => channel.BasicAck(a, multiple: false)); //ack the messages
             Console.WriteLine($" # Thread {threadNumber} wrote {current+1} hashes"); //+1 since zero based
@@ -72,6 +83,8 @@ void MessageHandler(object? model,
     }
     else
         current++;
+
+    return current;
 }
 
 
