@@ -10,8 +10,6 @@ Console.WriteLine("Hello, World! Starting messages recieving...");
 const int threadCount = 4;
 
 ThreadPool.GetMaxThreads(out int maxWorker, out int maxCompletionThreads);
-//default to CPUs number, can't be set to a number smaller than the number of processors on the computer.
-//https://learn.microsoft.com/en-us/dotnet/api/system.threading.threadpool.setmaxthreads?view=net-7.0
 ThreadPool.SetMaxThreads(threadCount, maxCompletionThreads); 
 
 for (int i = 0; i < threadCount; i++)

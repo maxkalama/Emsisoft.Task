@@ -1,4 +1,5 @@
 ﻿using Emsisoft.DB;
+using Microsoft.EntityFrameworkCore;
 
 namespace Emsisoft.Data
 {
@@ -19,13 +20,13 @@ namespace Emsisoft.Data
             }
         }
 
-        public Dictionary<DateOnly, int> GetCounts()
+        public async Task<Dictionary<DateOnly, int>> GetCountsAsync()
         {
             using var context = new HashesContext();
-            var hashes = context.Hashes.GroupBy(h => h.Date)
+            var hashes = await context.Hashes.GroupBy(h => h.Date)
                 .Select(g => new { g.Key, Count = g.Count() })
                 .OrderByDescending(k => k.Key)
-                .ToDictionary(g => g.Key, g => g.Count);
+                .ToDictionaryAsync(g => g.Key, g => g.Count);
             return hashes;
         }
     }

@@ -22,9 +22,9 @@ namespace Emsisoft.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult Get()
+        public async Task<ActionResult> GetAsync()
         {
-            var counts = _dbService.GetCounts();
+            var counts = await _dbService.GetCountsAsync();
             return Ok(counts.Select(c=> new {Date = c.Key.ToShortDateString(), Count = c.Value.ToString()}));
         }
 

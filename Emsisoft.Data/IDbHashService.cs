@@ -4,7 +4,7 @@ namespace Emsisoft.Data
 {
     public interface IDbHashService
     {
-        Dictionary<DateOnly, int> GetCounts();
+        Task<Dictionary<DateOnly, int>> GetCountsAsync();
         Task<bool> TryInsertAsync(IEnumerable<Hash> hashesBatch);
     }
 }
