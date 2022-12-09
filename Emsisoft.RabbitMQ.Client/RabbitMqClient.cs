@@ -26,7 +26,7 @@ namespace Emsisoft.RabbitMQ.Client
             }
         }
 
-        public static void StartConsuming(IModel channel, EventingBasicConsumer consumer)
+        public static void StartConsuming(IModel channel, AsyncEventingBasicConsumer consumer)
         {
             //some code extracted to the calling method
 
@@ -39,6 +39,7 @@ namespace Emsisoft.RabbitMQ.Client
         public static void GetChannel(out IConnection connection, out IModel channel)
         {
             var factory = new ConnectionFactory() { HostName = "localhost" };
+            factory.DispatchConsumersAsync = true;
             connection = factory.CreateConnection();
             channel = connection.CreateModel();
 

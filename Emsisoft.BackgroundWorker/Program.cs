@@ -32,7 +32,7 @@ void ExecuteMessageConsumer(int threadNumber)
     ushort current = 0;
 
     RabbitMqClient.GetChannel(out IConnection connection, out IModel channel);
-    var consumer = new EventingBasicConsumer(channel);
+    var consumer = new AsyncEventingBasicConsumer(channel);
     consumer.Received += async (model, ea) =>
     {
         current = await MessageHandlerAsync(model,
