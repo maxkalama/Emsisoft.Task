@@ -14,8 +14,8 @@ ThreadPool.SetMaxThreads(threadCount, maxCompletionThreads);
 
 for (int i = 0; i < threadCount; i++)
 {
-    var t = new Thread(() => ExecuteMessageConsumer(threadNumber: i));
-    t.Start();
+    var t = new Thread((i) => ExecuteMessageConsumer(threadNumber: (int)i));
+    t.Start(i); //i should be passed as parameter since it may change while a thread is starting
 }
 
 Console.WriteLine("Press Enter to exit");
@@ -23,6 +23,8 @@ Console.ReadLine();
 
 void ExecuteMessageConsumer(int threadNumber)
 {
+    Console.WriteLine($"Thread {threadNumber} has started.");
+
     var service = new Sha1HashesService();
     var dbService = new DbHashService();
 
