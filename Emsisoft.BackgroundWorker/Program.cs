@@ -6,8 +6,6 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
 Console.WriteLine($"Hello, World! Starting messages recieving... Main thread {Thread.CurrentThread.ManagedThreadId}");
-Console.Write("Press Enter to continue...");
-Console.ReadLine();
 
 const int threadCount = 4;
 
