@@ -71,7 +71,7 @@ async Task<ushort> MessageHandlerAsync(object? model,
         if (await dbService.TryInsertAsync(dbBatch))
         {
             ackBatch.ToList().ForEach(a => channel.BasicAck(a, multiple: false)); //ack the messages
-            Console.WriteLine($" # Thread {Thread.CurrentThread.ManagedThreadId} {threadNumber} wrote {current+1} hashes"); //+1 since zero based
+            Console.WriteLine($" # Thread id:{Thread.CurrentThread.ManagedThreadId} num:{threadNumber} wrote {current+1} hashes"); //+1 since zero based
             current = 0;
         }
         else
