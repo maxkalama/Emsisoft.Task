@@ -14,8 +14,12 @@ namespace Emsisoft.DB
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Hash>().Property(h => h.Date)
+            modelBuilder.Entity<Hash>()
+                .Property(h => h.Date)
                 .HasConversion(v => v.ToDateTime(TimeOnly.MinValue), v => DateOnly.FromDateTime(v));
+
+            modelBuilder.Entity<Hash>()
+                .HasIndex(h => h.Date);
         }
 
         public DbSet<Hash> Hashes { get; set; }
